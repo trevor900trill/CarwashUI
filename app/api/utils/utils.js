@@ -1,3 +1,5 @@
+import { jwtDecode } from "jwt-decode";
+
 export const handleResponse = async (response) => {
   if (!response.ok) {
     if (response.status === 401) {
@@ -20,11 +22,9 @@ export const handleLoginResponse = async (response) => {
   return response;
 };
 
-export const loginHeaders = (body) => {
-  const credentials = btoa(`${body.email}:${body.password}`);
+export const loginHeaders = () => {
   return {
     "Content-Type": "application/json",
-    Authorization: `Basic ${credentials}`,
   };
 };
 
@@ -106,4 +106,60 @@ export const formatDate = (isoString) => {
     minute: "numeric",
     hour12: true,
   });
+};
+
+export const decodeAndCheckPermission = () => {
+  if (typeof window === "undefined") {
+    return [];
+  } else {
+    const t = JSON.parse(localStorage.getItem("userData"));
+    /*
+    const token = t.result.token;
+    try {
+      const decodedToken = jwtDecode(token);
+      if (decodedToken && decodedToken.permissions !== undefined) {
+        const permission = decodedToken.permissions;
+        if (Array.isArray(permission)) {
+          const permissions = permission.map((jsonString) => {
+            try {
+              return JSON.parse(jsonString);
+            } catch (error) {
+              console.error("Error parsing permission JSON:", error);
+              return {};
+            }
+          });
+
+          return permissions;
+        } else {
+          const permissions = JSON.parse(permission);
+
+          return [permissions];
+        }
+      }
+    } catch (error) {
+      console.error("Error decoding token:", error);
+    }
+
+    return [];
+    */
+    // const usertype = t.result.profile.userType;
+    // if (usertype === "Individual" || usertype === "Agent") {
+    //   return [
+    //     { Permission: "Dashboard" },
+    //     { Permission: "IndividualCollectionCenters" },
+    //   ];
+    // } else {
+    return [
+      { Permission: "Dashboard" },
+      { Permission: "RegionalCenters" },
+      { Permission: "CenterOffices" },
+      { Permission: "Agents" },
+      { Permission: "CollectionCenters" },
+      { Permission: "Reports" },
+      { Permission: "Users" },
+      { Permission: "Categories" },
+      { Permission: "Settings" },
+    ];
+    // }
+  }
 };

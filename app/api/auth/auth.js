@@ -12,10 +12,14 @@ const globalOtpTypes = ["Login", "Signin", "CollectionRequest"];
 
 export const logIn = async (body) => {
   const params = {
-    headers: loginHeaders(body),
+    headers: loginHeaders(),
     method: "POST",
+    body: JSON.stringify(body),
   };
-  const response = await fetch(API_BASE_URL + "/api/Auth/login", params);
+  const response = await fetch(
+    API_BASE_URL + "/api/authentication/login",
+    params
+  );
   return handleLoginResponse(response);
 };
 
@@ -25,13 +29,12 @@ export const signUp = async (body, userType) => {
     method: "POST",
     body: JSON.stringify({
       userType: globalUserTypes[userType],
-      agentCode: "string",
       ...body,
     }),
   };
   const response = await fetch(
     API_BASE_URL +
-      "/api/Auth/register_user?userTypes=" +
+      "/api/authentication/signUp?userTypes=" +
       globalUserTypes[userType],
     params
   );
@@ -44,37 +47,9 @@ export const fetchUsersByType = async (userType) => {
     method: "GET",
   };
   const response = await fetch(
-    API_BASE_URL + "/api/Auth/all_users?userType=" + globalUserTypes[userType],
-    params
-  );
-  return handleResponse(response);
-};
-
-export const generateOTP = async (body, otpType) => {
-  const params = {
-    headers: await postHeaders(),
-    method: "POST",
-    body: JSON.stringify({
-      ...body,
-    }),
-  };
-  const response = await fetch(
-    API_BASE_URL + "/api/Otp/InitiateOtp?action=" + globalOtpTypes[otpType],
-    params
-  );
-  return handleResponse(response);
-};
-
-export const validateOTP = async (body, otpType) => {
-  const params = {
-    headers: await postHeaders(),
-    method: "POST",
-    body: JSON.stringify({
-      ...body,
-    }),
-  };
-  const response = await fetch(
-    API_BASE_URL + "/api/Otp/VerifyOtp?action=" + globalOtpTypes[otpType],
+    API_BASE_URL +
+      "/api/authentication/all_users?userType=" +
+      globalUserTypes[userType],
     params
   );
   return handleResponse(response);

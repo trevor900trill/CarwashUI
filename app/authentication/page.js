@@ -35,7 +35,7 @@ function WillowsLogin() {
       const data = await response.json();
       localStorage.setItem("userData", JSON.stringify(data));
       Cookies.set("userData", JSON.stringify(data), { expires: 7 });
-      router.push("/weee");
+      router.push("/autosplash");
     } catch (error) {
       setError(error.message);
       console.error("Login error:", error);
@@ -48,13 +48,13 @@ function WillowsLogin() {
     <section className="flex flex-col justify-center items-center w-full h-full">
       <section className="bg-white rounded-lg w-full">
         <h1 className="text-start font-bold text-2xl text-black mb-2">
-          Sign in to WEEE Centre
+          Sign in to Auto Splash
         </h1>
         <span className="text-center text-sm font-medium text-gray-900">
           Don&apos;t have an account yet?{" "}
           <Link
             href="/authentication/signup"
-            className="willow-links cursor-pointer"
+            className="willow-links cursor-pointer text-primary"
           >
             Sign Up
           </Link>
@@ -108,7 +108,7 @@ function WillowsLogin() {
         <div className="mb-6">
           <WeeeButton
             loading={loading}
-            buttonlabel={"Change Collection Method"}
+            buttonlabel={"Change Booking Method"}
             alternate={true}
             btnaction={() => {
               router.push("/landing");

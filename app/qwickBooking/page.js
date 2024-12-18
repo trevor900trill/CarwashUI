@@ -1,40 +1,26 @@
 "use client";
 
-import WeeTable from "../../sections/table";
 import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+
 import { Modal, Alert } from "flowbite-react";
 
-import {
-  HiDotsVertical,
-  HiInformationCircle,
-  HiCheckCircle,
-} from "react-icons/hi";
+import { HiInformationCircle, HiCheckCircle } from "react-icons/hi";
 
-import { Menu, MenuItem, IconButton } from "@mui/material";
+import WeeeInputs from "../sections/weeeinput";
+import WeeeButton from "../sections/weeebutton";
+import WeeeSelect from "../sections/weeeselect";
 
-import WeeeInputs from "../../sections/weeeinput";
-import WeeeButton from "../../sections/weeebutton";
-import WeeeSpinner from "../../sections/weeespinner";
-import WeeeSelect from "../../sections/weeeselect";
+import { postQuickCollection } from "../api/collections/collections";
 
-import {
-  postQuickCollection,
-  fetchCollections,
-  updateCollection,
-} from "../../../app/api/collections/collections";
+import { generateOTP, validateOTP, fetchUsersByType } from "../api/auth/auth";
 
-import {
-  generateOTP,
-  validateOTP,
-  fetchUsersByType,
-} from "../../../app/api/auth/auth";
-
-import { fetchRegions } from "../../../app/api/regions/regions";
-import { fetchCategories } from "../../../app/api/categories/categories";
+import { fetchRegions } from "../api/regions/regions";
+import { fetchCategories } from "../api/categories/categories";
 
 export default function QuickCollections() {
   const [loading, setloading] = useState(false);
-  const [categoriesData, setCategoriesData] = useState(null);
+  const [categoriesData, setCategoriesData] = useState([]);
   const [subcollectionCategories, setsubcollectionCategories] = useState([]);
   const [regionData, setRegionData] = useState(null);
   const [agentData, setAgentData] = useState(null);
@@ -56,12 +42,14 @@ export default function QuickCollections() {
   const [location, setLocation] = useState("");
   const [myFOrmData, setMyFormData] = useState(null);
 
+  const router = useRouter();
+
   async function loadCategoriesData() {
     try {
       setloading(true);
       const result = await fetchCategories();
       const categories = await result.json();
-      setCategoriesData(categories);
+      setCategoriesData(categories.result);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -189,7 +177,7 @@ export default function QuickCollections() {
   // };
 
   const handleCategoryValueChange = (newValue) => {
-    const selectedCategory = categoriesData.result.find(
+    const selectedCategory = categoriesData.find(
       (category) => category.id === newValue
     );
 
@@ -213,7 +201,7 @@ export default function QuickCollections() {
               <span className="flex items-center justify-center w-5 h-5 me-2 text-xs border border-primary-600 rounded-full shrink-0 dark:border-primary-500">
                 1
               </span>
-              Quick Collect
+              <span className="hidden md:flex">Quick Collect</span>
               <svg
                 className="w-3 h-3 ms-2 sm:ms-4 rtl:rotate-180"
                 aria-hidden="true"
@@ -238,7 +226,7 @@ export default function QuickCollections() {
               <span className="flex items-center justify-center w-5 h-5 me-2 text-xs border border-gray-500 rounded-full shrink-0 dark:border-gray-400">
                 2
               </span>
-              Generate OTP{" "}
+              <span className="hidden md:flex">Generate OTP</span>
               <svg
                 className="w-3 h-3 ms-2 sm:ms-4 rtl:rotate-180"
                 aria-hidden="true"
@@ -263,7 +251,7 @@ export default function QuickCollections() {
               <span className="flex items-center justify-center w-5 h-5 me-2 text-xs border border-gray-500 rounded-full shrink-0 dark:border-gray-400">
                 2
               </span>
-              Validate OTP{" "}
+              <span className="hidden md:flex"> Validate OTP</span>
               <svg
                 className="w-3 h-3 ms-2 sm:ms-4 rtl:rotate-180"
                 aria-hidden="true"
@@ -288,7 +276,7 @@ export default function QuickCollections() {
               <span className="flex items-center justify-center w-5 h-5 me-2 text-xs border border-gray-500 rounded-full shrink-0 dark:border-gray-400">
                 4
               </span>
-              Complete
+              <span className="hidden md:flex">Complete</span>
             </li>
           </ol>
 
@@ -336,28 +324,24 @@ export default function QuickCollections() {
                   />
                 </div>
               )} */}
+              <div className="w-full mb-2">
+                <WeeeSelect
+                  weeeinputlabel={"Category Name"}
+                  value={collectionCategoryId}
+                  onValueChange={handleCategoryValueChange}
+                  placeholder={"Select Category..."}
+                  required={true}
+                  btndisabled={loading || !categoriesData}
+                  small={true}
+                  selectData={categoriesData.map((element, index) => {
+                    return {
+                      key: element.id,
+                      label: element.name,
+                    };
+                  })}
+                />
+              </div>
 
-              {categoriesData && (
-                <div className="w-full mb-2">
-                  <WeeeSelect
-                    weeeinputlabel={"Category Name"}
-                    value={collectionCategoryId}
-                    onValueChange={handleCategoryValueChange}
-                    placeholder={"Select Category..."}
-                    required={true}
-                    btndisabled={loading}
-                    small={true}
-                    selectData={categoriesData.result.map((element, index) => {
-                      return {
-                        key: element.id,
-                        label: element.name,
-                      };
-                    })}
-                  />
-                </div>
-              )}
-
-              {/* {subcollectionCategories.length !== 0 && ( */}
               <div className="w-full mb-2">
                 <WeeeSelect
                   weeeinputlabel={"Subcategory Name"}
@@ -375,47 +359,30 @@ export default function QuickCollections() {
                   })}
                 />
               </div>
-              {/* )} */}
-
               <div className="w-full mb-2">
                 <WeeeInputs
-                  weeeinputlabel={"Name"}
+                  weeeinputlabel={"Item to be disposed"}
                   value={name}
                   onValueChange={setName}
-                  placeholder={"Name"}
+                  placeholder={"Item to be disposed"}
                   inputtype={"text"}
                   required={true}
                   btndisabled={loading}
                   small={true}
                 />
               </div>
-
-              {/* <div className="w-full mb-2">
-                <WeeeInputs
-                  weeeinputlabel={"Order Number"}
-                  value={orderNUmber}
-                  onValueChange={setOrderNumber}
-                  placeholder={"Order Number"}
-                  inputtype={"number"}
-                  required={true}
-                  btndisabled={loading}
-                  small={true}
-                />
-              </div> */}
-
               <div className="w-full mb-2">
                 <WeeeInputs
-                  weeeinputlabel={"Weight (Kg)"}
+                  weeeinputlabel={"Estimated Weight (Kg)"}
                   value={weight}
                   onValueChange={setWeight}
-                  placeholder={"Weight (Kg)"}
+                  placeholder={"Estimated Weight (Kg)"}
                   inputtype={"number"}
                   required={true}
                   btndisabled={loading}
                   small={true}
                 />
               </div>
-
               <div className="w-full mb-2">
                 <WeeeInputs
                   weeeinputlabel={"Location"}
@@ -428,7 +395,6 @@ export default function QuickCollections() {
                   small={true}
                 />
               </div>
-
               <div className="w-full mb-2">
                 <label
                   className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -450,11 +416,18 @@ export default function QuickCollections() {
                   A picture of the collected item.
                 </div>
               </div>
-
               <section className="w-full flex justify-end items-center space-x-2">
                 <WeeeButton
                   loading={loading}
-                  buttonlabel={"Submit"}
+                  buttonlabel={"Change Booking Method"}
+                  small={true}
+                  btnaction={() => router.push("/landing")}
+                  alternate={true}
+                  makefull={false}
+                />
+                <WeeeButton
+                  loading={loading}
+                  buttonlabel={"Next"}
                   small={true}
                   makefull={false}
                 />
@@ -482,7 +455,15 @@ export default function QuickCollections() {
               <section className="w-full flex justify-end items-center space-x-2">
                 <WeeeButton
                   loading={loading}
-                  buttonlabel={"Submit"}
+                  buttonlabel={"Back"}
+                  small={true}
+                  btnaction={() => setCurrentStep(currentStep - 1)}
+                  alternate={true}
+                  makefull={false}
+                />
+                <WeeeButton
+                  loading={loading}
+                  buttonlabel={"Next"}
                   small={true}
                   makefull={false}
                 />
@@ -510,7 +491,15 @@ export default function QuickCollections() {
               <section className="w-full flex justify-end items-center space-x-2">
                 <WeeeButton
                   loading={loading}
-                  buttonlabel={"Submit"}
+                  buttonlabel={"Back"}
+                  small={true}
+                  btnaction={() => setCurrentStep(currentStep - 1)}
+                  alternate={true}
+                  makefull={false}
+                />
+                <WeeeButton
+                  loading={loading}
+                  buttonlabel={"Complete"}
                   small={true}
                   makefull={false}
                 />
@@ -521,8 +510,18 @@ export default function QuickCollections() {
             <div className="w-full mb-2">
               <Alert color="success" icon={HiCheckCircle}>
                 <span className="font-medium">Success! </span>
-                Collection request submitted successfully
+                Booking request submitted successfully
               </Alert>
+              <section className="w-full flex justify-end items-center space-x-2 mt-4">
+                <WeeeButton
+                  loading={loading}
+                  buttonlabel={"View Booking Options"}
+                  small={true}
+                  btnaction={() => router.push("/landing")}
+                  alternate={true}
+                  makefull={false}
+                />
+              </section>
             </div>
           )}
 

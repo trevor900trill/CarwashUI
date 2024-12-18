@@ -52,11 +52,14 @@ export default function WillowsSignUp() {
   return (
     <section className="bg-white rounded-lg w-full my-14">
       <h1 className="text-start font-bold text-2xl text-black mb-2">
-        Create a WEEE centre account
+        Create an Auto Splash account
       </h1>
       <span className="text-center text-sm font-medium text-gray-900">
         Already have an account?{" "}
-        <Link href="/authentication" className="willow-links cursor-pointer">
+        <Link
+          href="/authentication"
+          className="willow-links cursor-pointer text-primary"
+        >
           Log In
         </Link>
       </span>

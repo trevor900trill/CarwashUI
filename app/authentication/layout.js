@@ -2,7 +2,7 @@
 
 import "../globals.css";
 import Image from "next/image";
-import logo from "../../public/assets/REALLOGO-removebg-preview.png";
+import logo from "../../public/assets/LOGO2-nobg.webp";
 
 const AuthenticationLayout = ({ children }) => {
   return (
@@ -13,7 +13,7 @@ const AuthenticationLayout = ({ children }) => {
         </section>
         <section className="hidden justify-center items-center absolute right-0 lg:flex xl:flex lg:w-2/3 xl:2/3 h-full p-6">
           <div className="w-full h-full flex justify-center items-center rounded-lg bg-primary-100">
-            <Image src={logo} alt="WEEE CENTER LOGO" height={100} />
+            <Image src={logo} alt="AUTO SPLASH LOGO" height={300} />
           </div>
         </section>
       </div>

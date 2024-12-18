@@ -220,17 +220,17 @@ const HomeLayout = ({ children }) => {
                         <>
                           <Avatar alt="User" className="h-2" rounded />
                           <h1 className="text-sm pl-2 hidden sm:flex md:flex  mt-0">
-                            {userProfile.result.profile.firstName}
+                            {userProfile.fullName}
                           </h1>
                         </>
                       }
                     >
                       <DropdownHeader>
                         <span className="block text-sm">
-                          {userProfile.result.profile.firstName}
+                          {userProfile.fullName}
                         </span>
                         <span className="block truncate text-sm font-medium">
-                          {userProfile.result.profile.email}
+                          {userProfile.email}
                         </span>
                       </DropdownHeader>
                       <DropdownItem>Edit Profile</DropdownItem>
@@ -290,7 +290,7 @@ const HomeLayout = ({ children }) => {
         <section className="w-full pl-4 pr-4 mt-4 flex justify-center items-center">
           <div className="h-40 w-full mb-2 bg-primary rounded-lg p-2 md:p-10 flex flex-col justify-center items-start relative">
             <h2 className="text-center mb-0 text-2xl font-bold tracking-tight text-white">
-              Hello Trevor !
+              Welcome Back Trevor !
             </h2>
             <p className="text-start mb-0 text-md font-normal tracking-tight text-white">
               We have an event coming up on 31st October
@@ -318,7 +318,7 @@ const HomeLayout = ({ children }) => {
               Terms & Conditions
             </Link>
           </div>
-          <p className="text-xs text-black">&copy; 2024 qwikpace solutions</p>
+          <p className="text-xs text-black">&copy; 2024 autosplash</p>
         </section>
       </section>
     </main>

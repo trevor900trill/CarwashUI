@@ -9,24 +9,25 @@ module.exports = {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     flowbite.content(),
   ],
+  // aec9cd
   theme: {
     extend: {
       colors: {
         primary: {
-          DEFAULT: "#265c20",
-          100: "#e1eadd",
-          200: "#c3d4bb",
-          300: "#a6be99",
-          400: "#88a877",
-          500: "#6b9255",
-          600: "#55773e",
-          700: "#3e5b2d",
-          800: "#27401c",
-          900: "#11260a",
+          DEFAULT: "#4da6c1",
+          100: "#eaf6f9", // Very light blue
+          200: "#cde8ef", // Lighter blue
+          300: "#89d1de", // Soft aqua
+          400: "#56c2c8", // Vibrant aqua
+          500: "#4da6c1", // Logo base
+          600: "#3b8da4", // Deeper teal
+          700: "#2c6e84", // Muted teal
+          800: "#1f515e", // Dark blue-gray
+          900: "#12323f", // Deep navy
         },
-        secondary: "#265c20",
-        background: "#f9fff5",
-        coolgrey: "#f9fafb",
+        secondary: "#06222f", // Deep blue
+        background: "#eaf6f9",
+        coolgrey: "#06222f",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

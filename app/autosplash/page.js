@@ -58,7 +58,7 @@ export default function Catalog() {
   };
 
   const donutChartData = {
-    labels: ["Red", "Blue", "Yellow"],
+    labels: ["Basic Wash", "Premium Wash", "Exterior Polish"],
     values: [300, 50, 100],
   };
 
@@ -67,7 +67,7 @@ export default function Catalog() {
     labels: lineChartData.labels,
     datasets: [
       {
-        label: "My Line Chart",
+        label: "Car Wash Requests Trend",
         data: lineChartData.values,
         fill: false,
         borderColor: "rgba(75, 192, 192, 1)",
@@ -80,7 +80,7 @@ export default function Catalog() {
     labels: donutChartData.labels,
     datasets: [
       {
-        label: "My Donut Chart",
+        label: "Service Distribution",
         data: donutChartData.values,
         backgroundColor: [
           "rgba(75, 192, 192, 0.2)",
@@ -99,46 +99,46 @@ export default function Catalog() {
 
   const dummyData = [
     {
-      corporate: "Acme Corp",
-      location: "New York",
-      weight: 1200,
-      status: "Active",
+      user: "John Doe",
+      rating: 4.5,
+      service: "Premium Wash",
+      earnings: 50.0,
     },
     {
-      corporate: "Globex Inc.",
-      location: "London",
-      weight: 1500,
-      status: "Inactive",
+      user: "Jane Smith",
+      rating: 4.0,
+      service: "Basic Wash",
+      earnings: 20.0,
     },
     {
-      corporate: "Umbrella Corp",
-      location: "Tokyo",
-      weight: 1100,
-      status: "Active",
+      user: "Mike Johnson",
+      rating: 3.8,
+      service: "Interior Detailing",
+      earnings: 75.0,
     },
     {
-      corporate: "Wayne Enterprises",
-      location: "Gotham",
-      weight: 2000,
-      status: "Pending",
+      user: "Emily Davis",
+      rating: 4.9,
+      service: "Exterior Polish",
+      earnings: 100.0,
     },
     {
-      corporate: "Stark Industries",
-      location: "Los Angeles",
-      weight: 1700,
-      status: "Active",
+      user: "Chris Brown",
+      rating: 3.5,
+      service: "Engine Cleaning",
+      earnings: 120.0,
     },
     {
-      corporate: "Oscorp",
-      location: "New York",
-      weight: 1300,
-      status: "Inactive",
+      user: "Sarah Wilson",
+      rating: 4.7,
+      service: "Deluxe Wash",
+      earnings: 90.0,
     },
     {
-      corporate: "Soylent Corp",
-      location: "San Francisco",
-      weight: 1600,
-      status: "Pending",
+      user: "David Clark",
+      rating: 3.2,
+      service: "Basic Wash",
+      earnings: 18.0,
     },
   ];
 
@@ -200,7 +200,7 @@ export default function Catalog() {
       <div className="grid grid-cols-1 xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-3 grid-flow-dense gap-4 mb-4">
         <div className="col-span-2 row-span-3 bg-white rounded-lg flex flex-col justify-start items-start p-4">
           <h1 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
-            Collections
+            Car Wash Visits
           </h1>
           <Line
             data={lineChartConfig}
@@ -212,7 +212,7 @@ export default function Catalog() {
         </div>
         <div className="col-span-2 md:col-span-1 lg:col-span-1 xl:col-span-1 row-span-2 bg-white rounded-lg flex flex-col justify-start items-start p-4">
           <h1 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
-            Trend of Collection
+            Popular Services
           </h1>
           <Doughnut
             data={donutChartConfig}
@@ -224,23 +224,23 @@ export default function Catalog() {
         </div>
         <div className="col-span-2 row-span-3 bg-white rounded-lg flex flex-col justify-start items-start p-4 w-full">
           <h1 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
-            Collection Requests
+            Top Earners
           </h1>
           <div className="relative overflow-x-auto w-full">
             <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
               <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                   <th scope="col" className="px-6 py-3">
-                    Corporate
+                    User
                   </th>
                   <th scope="col" className="px-6 py-3">
-                    Location
+                    Rating
                   </th>
                   <th scope="col" className="px-6 py-3">
-                    Weight
+                    Service
                   </th>
                   <th scope="col" className="px-6 py-3">
-                    Status
+                    Earnings
                   </th>
                 </tr>
               </thead>
@@ -254,11 +254,11 @@ export default function Catalog() {
                       scope="row"
                       className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                     >
-                      {data.corporate}
+                      {data.user}
                     </th>
-                    <td className="px-6 py-4">{data.location}</td>
-                    <td className="px-6 py-4">{data.weight}</td>
-                    <td className="px-6 py-4">{data.status}</td>
+                    <td className="px-6 py-4">{data.rating}</td>
+                    <td className="px-6 py-4">{data.service}</td>
+                    <td className="px-6 py-4">{data.earnings}</td>
                   </tr>
                 ))}
               </tbody>
@@ -276,36 +276,14 @@ export default function Catalog() {
                 February 2022
               </time>
               <h3 className="text-md font-semibold text-gray-900 dark:text-white">
-                Added new Driver Doja
+                Launched Premium Wash Service
               </h3>
               <p className="mb-4 text-base font-normal text-gray-500 dark:text-gray-400">
-                Driver Doja brings enhanced performance and compatibility,
-                ensuring seamless integration with your existing fleet. Enjoy
-                features like real-time tracking, advanced diagnostics, and
-                optimized fuel efficiency across 20+ modules, including
-                dashboards, analytics, and maintenance schedules.
+                Our Premium Wash service is now live, offering customers a
+                complete car detailing experience, including exterior polish,
+                interior vacuuming, and tire shine. Enjoy a new level of
+                cleanliness and customer satisfaction.
               </p>
-              {/* <a
-                href="#"
-                className="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:outline-none focus:ring-gray-100 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700"
-              >
-                Learn more{" "}
-                <svg
-                  className="w-3 h-3 ms-2 rtl:rotate-180"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 14 10"
-                >
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M1 5h12m0 0L9 1m4 4L9 9"
-                  />
-                </svg>
-              </a> */}
             </li>
             <li className="mb-10 ms-4">
               <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -start-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"></div>
@@ -313,12 +291,12 @@ export default function Catalog() {
                 March 2022
               </time>
               <h3 className="text-md font-semibold text-gray-900 dark:text-white">
-                Approved Collection Request
+                Approved New Customer Subscription
               </h3>
               <p className="text-base font-normal text-gray-500 dark:text-gray-400">
-                The collection request has been successfully approved and is now
-                being processed. You can track the progress and view details on
-                the updated project dashboard.
+                A new customer subscription was approved for the unlimited
+                monthly car wash package. The subscription includes access to
+                priority booking and exclusive discounts on additional services.
               </p>
             </li>
             <li className="ms-4">
@@ -327,12 +305,13 @@ export default function Catalog() {
                 April 2022
               </time>
               <h3 className="text-md font-semibold text-gray-900 dark:text-white">
-                New Vehicle Added
+                Added New Washing Bay
               </h3>
               <p className="text-base font-normal text-gray-500 dark:text-gray-400">
-                The new vehicle has been successfully added to your fleet.
-                Explore its features and integrate it with your existing
-                operations seamlessly.
+                A new washing bay has been added to the facility, increasing our
+                capacity to serve customers during peak hours. The new bay
+                includes state-of-the-art equipment for faster and more
+                efficient washes.
               </p>
             </li>
           </ol>

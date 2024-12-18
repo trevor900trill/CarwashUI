@@ -4,9 +4,8 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"], display: "swap" });
 
 export const metadata = {
-  title: "Car wash",
-  description:
-    "Web Portal designed to automate the repurposing of trash into useful materials by the WEEE center company",
+  title: "Auto Splash",
+  description: "Your personal carwash companion",
 };
 
 export default function RootLayout({ children }) {
