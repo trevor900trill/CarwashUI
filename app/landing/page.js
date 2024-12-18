@@ -97,8 +97,8 @@ function Landing() {
                     <div className="w-full">
                       <p className="text-sm">
                         A hassle-free car wash booking service for quick and
-                        easy scheduling, no account needed. Just book, and we'll
-                        take care of the rest.
+                        easy scheduling, no account needed. Just book, and
+                        we&apos;ll take care of the rest.
                       </p>
                     </div>
                   </div>
