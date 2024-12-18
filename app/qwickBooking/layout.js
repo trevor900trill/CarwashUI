@@ -9,7 +9,6 @@ import { usePathname } from "next/navigation";
 
 import "../globals.css";
 import { useLogout } from "../hooks/logoutHook";
-import WeeeButton from "../sections/weeebutton";
 import logo from "../../public/assets/LOGO2-nobg.webp";
 
 const QwickCollectionLayout = ({ children }) => {

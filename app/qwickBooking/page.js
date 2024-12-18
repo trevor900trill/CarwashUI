@@ -13,11 +13,6 @@ import WeeeSelect from "../sections/weeeselect";
 
 import { postQuickCollection } from "../api/collections/collections";
 
-import { generateOTP, validateOTP, fetchUsersByType } from "../api/auth/auth";
-
-import { fetchRegions } from "../api/regions/regions";
-import { fetchCategories } from "../api/categories/categories";
-
 export default function QuickCollections() {
   const [loading, setloading] = useState(false);
   const [categoriesData, setCategoriesData] = useState([]);
@@ -47,9 +42,9 @@ export default function QuickCollections() {
   async function loadCategoriesData() {
     try {
       setloading(true);
-      const result = await fetchCategories();
-      const categories = await result.json();
-      setCategoriesData(categories.result);
+      // const result = await fetchCategories();
+      // const categories = await result.json();
+      // setCategoriesData(categories.result);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -60,9 +55,9 @@ export default function QuickCollections() {
   async function loadRegionData() {
     try {
       setloading(true);
-      const result = await fetchRegions();
-      const agents = await result.json();
-      setRegionData(agents);
+      // const result = await fetchRegions();
+      // const agents = await result.json();
+      // setRegionData(agents);
     } catch (err) {
       setAddError(err.message);
     } finally {
@@ -73,9 +68,9 @@ export default function QuickCollections() {
   async function loadAgentData() {
     try {
       setloading(true);
-      const result = await fetchUsersByType(1);
-      const agents = await result.json();
-      setAgentData(agents);
+      // const result = await fetchUsersByType(1);
+      // const agents = await result.json();
+      // setAgentData(agents);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -111,16 +106,16 @@ export default function QuickCollections() {
         setAddError("");
       }
       setloading(true);
-      const result = await generateOTP(
-        {
-          email: email,
-          phone: "0712345678",
-        },
-        2
-      );
-      const reference = await result.json();
-      setreference(reference.result);
-      setCurrentStep(2);
+      // const result = await generateOTP(
+      //   {
+      //     email: email,
+      //     phone: "0712345678",
+      //   },
+      //   2
+      // );
+      // const reference = await result.json();
+      // setreference(reference.result);
+      // setCurrentStep(2);
     } catch (error) {
       setAddError(error.message);
       console.error("Post Generate OTP error:", error);
@@ -135,9 +130,9 @@ export default function QuickCollections() {
         setAddError("");
       }
       setloading(true);
-      myFOrmData.append("reference", reference);
-      await postQuickCollection(myFOrmData);
-      setCurrentStep(3);
+      // myFOrmData.append("reference", reference);
+      // await postQuickCollection(myFOrmData);
+      // setCurrentStep(3);
     } catch (error) {
       setAddError(error.message);
       console.error("Post Quick COllect error:", error);
@@ -154,15 +149,15 @@ export default function QuickCollections() {
         setAddError("");
       }
       setloading(true);
-      await validateOTP(
-        {
-          reference: reference,
-          otpValue: otp,
-        },
-        2
-      );
-      await sendRequest();
-      setCurrentStep(3);
+      // await validateOTP(
+      //   {
+      //     reference: reference,
+      //     otpValue: otp,
+      //   },
+      //   2
+      // );
+      // await sendRequest();
+      // setCurrentStep(3);
     } catch (error) {
       setAddError(error.message);
       console.error("Post Validate OTP:", error);
